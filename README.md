@@ -34,3 +34,26 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+# Artistly - Performing Artist Booking Platform 🎤
+
+## Live Demo
+https://artistly-axvm5o612-bhumikasharma1403-gmailcoms-projects.vercel.app/dashboard
+
+## Features
+- Dark Mode Toggle
+- Explore Artists Page
+- Validated Onboarding Form
+- Manager Dashboard Table
+- TailwindCSS + Framer Motion Animations
+- Responsive & Accessible
+
+## Tech Stack
+- Next.js 15 App Router
+- TypeScript
+- TailwindCSS
+- shadcn/ui
+- Framer Motion
+- react-hook-form + yup
+
+## Developed by
+Bhumika Sharma
