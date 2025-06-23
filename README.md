@@ -37,7 +37,7 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 # Artistly - Performing Artist Booking Platform 🎤
 
 ## Live Demo
-https://artistly-axvm5o612-bhumikasharma1403-gmailcoms-projects.vercel.app/dashboard
+https://artistly-axvm5o612-bhumikasharma1403-gmailcoms-projects.vercel.app/
 
 ## Features
 - Dark Mode Toggle
