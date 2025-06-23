@@ -1,24 +1,86 @@
 'use client';
-import Navbar from "@/components/navbar";
-import Footer from "@/components/Footer";
+import { motion } from 'framer-motion';
+
+import * as yup from 'yup';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+
+import Navbar from '../../components/navbar';
+import Footer from '../../components/Footer';
+
+
+const schema = yup.object().shape({
+  name: yup.string().required('Name is required'),
+  bio: yup.string().required('Bio is required'),
+  category: yup.array().min(1, 'Select at least one category'),
+  languages: yup.array().min(1, 'Select at least one language'),
+  fee: yup.string().required('Fee range is required'),
+  location: yup.string().required('Location is required')
+});
 
 export default function OnboardingPage() {
+  const { register, handleSubmit, control, formState: { errors } } = useForm({
+    resolver: yupResolver(schema),
+    defaultValues: {
+      category: [],
+      languages: []
+    }
+  });
+
+  const onSubmit = (data: any) => {
+    console.log("Submitted Data:", data);
+  };
+
+  const categories = ['Singer', 'Dancer', 'DJ', 'Speaker'];
+  const languages = ['Hindi', 'English', 'Punjabi', 'Bengali'];
+
   return (
     <div className="dark:bg-zinc-950 min-h-screen transition-colors">
       <Navbar />
       <main className="px-6 py-12 max-w-2xl mx-auto">
-        <h2 className="text-3xl font-bold mb-6 text-center text-gray-900 dark:text-white">Artist Onboarding</h2>
-        <form className="bg-white dark:bg-zinc-900 p-6 rounded-lg shadow-md space-y-4">
-          <input type="text" placeholder="Artist Name" className="w-full p-3 rounded bg-zinc-100 dark:bg-zinc-800 text-gray-900 dark:text-white" />
-          <textarea placeholder="Short Bio" className="w-full p-3 rounded bg-zinc-100 dark:bg-zinc-800 text-gray-900 dark:text-white"></textarea>
-          <select className="w-full p-3 rounded bg-zinc-100 dark:bg-zinc-800 text-gray-900 dark:text-white">
-            <option>Select Category</option>
-            <option>Singer</option>
-            <option>Dancer</option>
-            <option>DJ</option>
-            <option>Speaker</option>
+        <motion.h2 initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} className="text-3xl font-bold mb-6 text-center text-gray-900 dark:text-white">
+          Artist Onboarding
+        </motion.h2>
+        <form onSubmit={handleSubmit(onSubmit)} className="bg-white dark:bg-zinc-900 p-6 rounded-lg shadow-md space-y-4">
+          <input {...register("name")} placeholder="Artist Name" className="w-full p-3 rounded bg-zinc-100 dark:bg-zinc-800 text-gray-900 dark:text-white" />
+          {errors.name && <p className="text-red-500 text-sm">{errors.name.message}</p>}
+
+          <textarea {...register("bio")} placeholder="Short Bio" className="w-full p-3 rounded bg-zinc-100 dark:bg-zinc-800 text-gray-900 dark:text-white"></textarea>
+          {errors.bio && <p className="text-red-500 text-sm">{errors.bio.message}</p>}
+
+          <label className="block text-sm font-medium text-gray-700 dark:text-white">Select Categories</label>
+          <div className="grid grid-cols-2 gap-2">
+            {categories.map(cat => (
+              <label key={cat} className="flex gap-2 items-center text-gray-700 dark:text-white">
+                <input type="checkbox" value={cat} {...register("category")} /> {cat}
+              </label>
+            ))}
+          </div>
+          {errors.category && <p className="text-red-500 text-sm">{errors.category.message}</p>}
+
+          <label className="block text-sm font-medium text-gray-700 dark:text-white">Languages Spoken</label>
+          <div className="grid grid-cols-2 gap-2">
+            {languages.map(lang => (
+              <label key={lang} className="flex gap-2 items-center text-gray-700 dark:text-white">
+                <input type="checkbox" value={lang} {...register("languages")} /> {lang}
+              </label>
+            ))}
+          </div>
+          {errors.languages && <p className="text-red-500 text-sm">{errors.languages.message}</p>}
+
+          <select {...register("fee")} className="w-full p-3 rounded bg-zinc-100 dark:bg-zinc-800 text-gray-900 dark:text-white">
+            <option value="">Select Fee Range</option>
+            <option>₹5,000 - ₹10,000</option>
+            <option>₹10,000 - ₹25,000</option>
+            <option>₹25,000 - ₹50,000</option>
           </select>
-          <input type="text" placeholder="Location" className="w-full p-3 rounded bg-zinc-100 dark:bg-zinc-800 text-gray-900 dark:text-white" />
+          {errors.fee && <p className="text-red-500 text-sm">{errors.fee.message}</p>}
+
+          <input {...register("location")} placeholder="Location" className="w-full p-3 rounded bg-zinc-100 dark:bg-zinc-800 text-gray-900 dark:text-white" />
+          {errors.location && <p className="text-red-500 text-sm">{errors.location.message}</p>}
+
+          <input type="file" className="w-full p-3 rounded bg-zinc-100 dark:bg-zinc-800 text-gray-900 dark:text-white" />
+
           <button type="submit" className="w-full bg-purple-700 text-white py-3 rounded hover:bg-purple-800 transition">Submit</button>
         </form>
       </main>

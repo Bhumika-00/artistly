@@ -1,7 +1,12 @@
 'use client';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { useForm, Controller } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+import { motion } from 'framer-motion';
 
+// Theme toggle
 export default function Navbar() {
   const [isDark, setIsDark] = useState(false);
 
@@ -24,6 +29,9 @@ export default function Navbar() {
         <Link href="/onboarding">
           <span className="text-gray-700 dark:text-gray-300 hover:text-purple-700 dark:hover:text-purple-400 cursor-pointer">Onboard</span>
         </Link>
+        <Link href="/dashboard">
+          <span className="text-gray-700 dark:text-gray-300 hover:text-purple-700 dark:hover:text-purple-400 cursor-pointer">Dashboard</span>
+        </Link>
         <button onClick={() => setIsDark(!isDark)} className="ml-4 text-sm px-3 py-1 rounded bg-zinc-200 dark:bg-zinc-700 text-black dark:text-white">
           {isDark ? '☀️ Light' : '🌙 Dark'}
         </button>
@@ -31,4 +39,3 @@ export default function Navbar() {
     </nav>
   );
 }
-
